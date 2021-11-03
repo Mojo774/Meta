@@ -1,16 +1,15 @@
-package com.example.meta;
+package com.example.discoveryserver;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
 
 @SpringBootApplication
-@EnableEurekaClient
-public class MetaApplication {
+@EnableEurekaServer
+public class DiscoveryServerApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(MetaApplication.class, args);
+		SpringApplication.run(DiscoveryServerApplication.class, args);
 	}
 
 }

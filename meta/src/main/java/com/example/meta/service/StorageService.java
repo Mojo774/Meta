@@ -1,6 +1,7 @@
 package com.example.meta.service;
 
 import com.example.meta.dto.CatalogItem;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -9,8 +10,11 @@ import java.util.List;
 @Service
 public class StorageService {
 
+    @Autowired
+    private RestTemplate restTemplate;
+
     public List<CatalogItem> getItems(String color, String operation, Integer cottonPart) {
-        RestTemplate restTemplate = new RestTemplate();
+
         List<CatalogItem> items = restTemplate.getForObject(
                 getRequest(color, operation, cottonPart)
                 , List.class);

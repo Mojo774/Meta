@@ -8,7 +8,6 @@ import com.example.servicestoragesocks.models.Sock;
 import com.example.servicestoragesocks.repository.SockRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 import javax.validation.ConstraintViolationException;
 import java.util.List;
