@@ -8,6 +8,8 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
@@ -23,11 +25,12 @@ public class StorageService {
 
     private String serviceStorageUrl = "http://service-storage-socks";
 
-    public List<CatalogItem> getItems(String color, String operation, Integer cottonPart) {
-
+    public List<CatalogItem> getItems(String color, String operation, Integer cottonPart) throws HttpClientErrorException {
         List<CatalogItem> items = restTemplate.getForObject(
-                getRequest(color, operation, cottonPart)
-                , List.class);
+                    getRequest(color, operation, cottonPart)
+                    , List.class);
+
+
         return items;
     }
 
