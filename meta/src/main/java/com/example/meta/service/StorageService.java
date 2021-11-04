@@ -25,13 +25,44 @@ public class StorageService {
 
     private String serviceStorageUrl = "http://service-storage-socks";
 
-    public List<CatalogItem> getItems(String color, String operation, Integer cottonPart) throws HttpClientErrorException {
+    public List<CatalogItem> getItems(
+            String color,
+            String operation,
+            Integer cottonPart) throws HttpClientErrorException {
+
         List<CatalogItem> items = restTemplate.getForObject(
                     getRequest(color, operation, cottonPart)
                     , List.class);
 
 
         return items;
+    }
+
+    public ResponseEntity<String> income(
+            String color,
+            Integer cottonPart,
+            Integer quantity) throws HttpClientErrorException {
+
+        String str = String.format(serviceStorageUrl + "/storage/income?color=%s&cottonPart=%d&quantity=%d",
+                color, cottonPart, quantity);
+
+        ResponseEntity<String> response =
+                restTemplate.exchange(str, HttpMethod.POST, HttpEntity.EMPTY, String.class);
+
+        return response;
+    }
+
+    public ResponseEntity<String> outcome(
+            String color,
+            Integer cottonPart,
+            Integer quantity) throws HttpClientErrorException {
+        String str = String.format(serviceStorageUrl + "/storage/outcome?color=%s&cottonPart=%d&quantity=%d",
+                color, cottonPart, quantity);
+
+        ResponseEntity<String> response =
+                restTemplate.exchange(str, HttpMethod.POST, HttpEntity.EMPTY, String.class);
+
+        return response;
     }
 
     private String getRequest(String color, String operation, Integer cottonPart) {
@@ -56,25 +87,5 @@ public class StorageService {
                     request,
                     String.format("&cottonPart=%s", cottonPart));
         }
-    }
-
-    public ResponseEntity<String> income(String color, Integer cottonPart, Integer quantity) {
-        String str = String.format(serviceStorageUrl + "/storage/income?color=%s&cottonPart=%d&quantity=%d",
-                color, cottonPart, quantity);
-
-        ResponseEntity<String> response =
-                restTemplate.exchange(str, HttpMethod.POST, HttpEntity.EMPTY, String.class);
-
-        return response;
-    }
-
-    public ResponseEntity<String> outcome(String color, Integer cottonPart, Integer quantity) {
-        String str = String.format(serviceStorageUrl + "/storage/outcome?color=%s&cottonPart=%d&quantity=%d",
-                color, cottonPart, quantity);
-
-        ResponseEntity<String> response =
-                restTemplate.exchange(str, HttpMethod.POST, HttpEntity.EMPTY, String.class);
-
-        return response;
     }
 }
