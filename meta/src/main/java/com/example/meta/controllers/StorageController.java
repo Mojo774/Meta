@@ -36,9 +36,7 @@ public class StorageController {
             @RequestParam Integer cottonPart,
             @RequestParam Integer quantity) {
 
-        //sockService.income(color, cottonPart, quantity);
-
-        return new ResponseEntity(HttpStatus.OK);
+        return storageService.income(color, cottonPart, quantity);
     }
 
     @PostMapping("/outcome")
@@ -47,12 +45,10 @@ public class StorageController {
             @RequestParam Integer cottonPart,
             @RequestParam Integer quantity) {
 
-        //sockService.outcome(color, cottonPart, quantity);
-
-        return new ResponseEntity(HttpStatus.OK);
+        return storageService.outcome(color, cottonPart, quantity);
     }
 
-    // 'Exception' чтобы ловить MissingServletRequestParameterException
+
     @ExceptionHandler(Exception.class)
     private ResponseEntity handleException(Exception e) {
        // return RequestHandler.getBadRequest(e);
