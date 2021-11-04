@@ -2,6 +2,7 @@ package com.example.meta.controllers;
 
 import com.example.meta.dto.CatalogItem;
 import com.example.meta.service.StorageService;
+import com.example.meta.util.RequestHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -48,10 +49,4 @@ public class StorageController {
         return storageService.outcome(color, cottonPart, quantity);
     }
 
-
-    @ExceptionHandler(Exception.class)
-    private ResponseEntity handleException(Exception e) {
-       // return RequestHandler.getBadRequest(e);
-        return null;
-    }
 }
