@@ -4,6 +4,7 @@ import com.example.meta.dto.CatalogItem;
 import com.example.meta.service.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,7 +17,7 @@ public class StorageController {
     @Autowired
     private StorageService storageService;
 
-    @GetMapping
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<CatalogItem>> getSocks(
             @RequestParam(required = false, defaultValue = "") String color,
             @RequestParam(required = false) String operation,

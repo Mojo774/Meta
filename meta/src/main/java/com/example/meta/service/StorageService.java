@@ -2,6 +2,7 @@ package com.example.meta.service;
 
 import com.example.meta.dto.CatalogItem;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -13,6 +14,9 @@ public class StorageService {
     @Autowired
     private RestTemplate restTemplate;
 
+    @Autowired
+    private DiscoveryClient discoveryClient;
+
     public List<CatalogItem> getItems(String color, String operation, Integer cottonPart) {
 
         List<CatalogItem> items = restTemplate.getForObject(
@@ -22,7 +26,7 @@ public class StorageService {
     }
 
     private String getRequest(String color, String operation, Integer cottonPart) {
-        String request = String.format("http://localhost:8081/storage?color=%s", color);
+        String request = String.format("http://service-storage-socks/storage?color=%s", color);
 
         if (operation == null && cottonPart == null) {
             return request;
