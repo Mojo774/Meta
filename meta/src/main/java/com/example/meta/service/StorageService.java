@@ -5,11 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
@@ -31,9 +29,8 @@ public class StorageService {
             Integer cottonPart) throws HttpClientErrorException {
 
         List<CatalogItem> items = restTemplate.getForObject(
-                    getRequest(color, operation, cottonPart)
-                    , List.class);
-
+                getRequest(color, operation, cottonPart)
+                , List.class);
 
         return items;
     }
@@ -43,8 +40,7 @@ public class StorageService {
             Integer cottonPart,
             Integer quantity) throws HttpClientErrorException {
 
-        String str = String.format(serviceStorageUrl + "/storage/income?color=%s&cottonPart=%d&quantity=%d",
-                color, cottonPart, quantity);
+        String str = getRequest(color, cottonPart, quantity, "income");
 
         ResponseEntity<String> response =
                 restTemplate.exchange(str, HttpMethod.POST, HttpEntity.EMPTY, String.class);
@@ -56,13 +52,21 @@ public class StorageService {
             String color,
             Integer cottonPart,
             Integer quantity) throws HttpClientErrorException {
-        String str = String.format(serviceStorageUrl + "/storage/outcome?color=%s&cottonPart=%d&quantity=%d",
-                color, cottonPart, quantity);
+
+        String str = getRequest(color, cottonPart, quantity, "outcome");
 
         ResponseEntity<String> response =
                 restTemplate.exchange(str, HttpMethod.POST, HttpEntity.EMPTY, String.class);
 
         return response;
+    }
+
+    private String getRequest(String color, Integer cottonPart, Integer quantity, String method) {
+        String request = String.format(
+                serviceStorageUrl + "/storage/" + method + "?color=%s&cottonPart=%d&quantity=%d",
+                color, cottonPart, quantity);
+
+        return request;
     }
 
     private String getRequest(String color, String operation, Integer cottonPart) {
