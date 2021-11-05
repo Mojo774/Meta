@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.net.URI;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping()
 public class GifController {
 
     @Autowired
@@ -35,6 +35,14 @@ public class GifController {
         headers.setLocation(URI.create(response));
 
         return new ResponseEntity(headers, HttpStatus.SEE_OTHER);
+    }
+
+    @GetMapping("/link")
+    public String getGifLink() {
+        TypeGif typeGif = rateService.getTypeGif();
+        String response = gifService.getGifLink(typeGif);
+
+        return response;
     }
 
     @ExceptionHandler(Exception.class)
