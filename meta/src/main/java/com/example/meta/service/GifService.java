@@ -1,5 +1,6 @@
 package com.example.meta.service;
 
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -14,16 +15,20 @@ public class GifService {
 
     private String serviceGifUrl = "http://service-gif";
 
-    public String getGifLink(){
+    @HystrixCommand(fallbackMethod = "getFallbackGifLink")
+    public String getGifLink() {
         String gifLink = restTemplate.getForObject(getRequest(), String.class);
 
         return gifLink;
     }
 
-    private String getRequest(){
+    private String getRequest() {
         String request = serviceGifUrl + "/link";
 
         return request;
     }
 
+    private String getFallbackGifLink() {
+        return "Something went wrong";
+    }
 }

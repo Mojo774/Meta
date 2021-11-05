@@ -1,6 +1,7 @@
 package com.example.meta.service;
 
 import com.example.meta.dto.CatalogItem;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.http.HttpEntity;
@@ -23,6 +24,7 @@ public class StorageService {
 
     private String serviceStorageUrl = "http://service-storage-socks";
 
+    @HystrixCommand
     public List<CatalogItem> getItems(
             String color,
             String operation,
@@ -35,6 +37,7 @@ public class StorageService {
         return items;
     }
 
+    @HystrixCommand
     public ResponseEntity<String> income(
             String color,
             Integer cottonPart,
@@ -48,6 +51,7 @@ public class StorageService {
         return response;
     }
 
+    @HystrixCommand
     public ResponseEntity<String> outcome(
             String color,
             Integer cottonPart,
