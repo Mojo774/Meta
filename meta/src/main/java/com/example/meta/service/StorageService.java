@@ -24,7 +24,9 @@ public class StorageService {
 
     private String serviceStorageUrl = "http://service-storage-socks";
 
-    @HystrixCommand
+    @HystrixCommand(
+            threadPoolKey = "getProductThreadPool",
+            commandKey = "getProductServiceCommand")
     public List<CatalogItem> getItems(
             String color,
             String operation,
@@ -37,7 +39,9 @@ public class StorageService {
         return items;
     }
 
-    @HystrixCommand
+    @HystrixCommand(
+            threadPoolKey = "getProductThreadPool",
+            commandKey = "getProductServiceCommand")
     public ResponseEntity<String> income(
             String color,
             Integer cottonPart,
@@ -51,7 +55,9 @@ public class StorageService {
         return response;
     }
 
-    @HystrixCommand
+    @HystrixCommand(
+            threadPoolKey = "getProductThreadPool",
+            commandKey = "getProductServiceCommand")
     public ResponseEntity<String> outcome(
             String color,
             Integer cottonPart,
