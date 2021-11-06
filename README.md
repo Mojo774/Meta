@@ -54,6 +54,7 @@
 * Spring framework
   * Boot
   * Web
+  * Cloud
 * Gradle
 * Feign
 
