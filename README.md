@@ -3,7 +3,7 @@
 Внешний интерфейс представлен в виде REST API  
 Подключен Eureka Server (discovery-server)
 
-![Image alt](UML.png)  
+![Image](UML.png)  
 (API Rate и Gif - сторонние сервисы: https://docs.openexchangerates.org/, https://developers.giphy.com/)  
 
 Сервис meta позволяет работать с двумя сервисами (обращается к сервисам через RestTemplate):  
