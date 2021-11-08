@@ -1,6 +1,6 @@
 # Meta
 Веб-приложение, написанное на java (spring), на основе микросервисной архитектуре (Патерн - Агрегатор)  
-Внешний интерфейс представлен в виде REST API  
+Внешний интерфейс и межсервисное взаимодействие организовано с использованием REST API    
 Подключен Eureka Server (discovery-server)
 
 ![Image](UML.png)  
@@ -54,6 +54,7 @@
 * Spring framework
   * Boot
   * Web
+  * Cloud
 * Gradle
 * Feign
 
