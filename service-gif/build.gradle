@@ -33,7 +33,11 @@ dependencyManagement {
 		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
 	}
 }
-
+jar {
+	manifest {
+		attributes 'Main-Class': 'com.example.servicegif.ServiceGifApplication'
+	}
+}
 test {
 	useJUnitPlatform()
 }

@@ -1,0 +1,62 @@
+version: '3.5'
+services:
+
+  db:
+    image: mysql:latest
+    environment:
+      - MYSQL_ROOT_PASSWORD=sashakar1
+      - MYSQL_DATABASE=storage_microservice
+      - MYSQL_USER=rafael
+      - MYSQL_PASSWORD=sashakar1
+    ports:
+      - 3306:3306
+
+
+  server-discovery:
+    image: docker-discovery-server
+    ports:
+      - 8761:8761
+
+  service-gif:
+    image: docker-service-gif
+    links:
+      - server-discovery
+    environment:
+      server.port: 8082
+      eureka.client.enabled: 'true'
+      eureka.host: server-discovery
+      eureka.instance.preferIpAddress: 'true'
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://server-discovery:8761
+
+  service-storage:
+    image: docker-service-storage
+    depends_on:
+      - db
+      - server-discovery
+    links:
+      - db
+      - server-discovery
+    ports:
+      - 8081:8081
+    environment:
+      - DATABASE_HOST=db
+      - DATABASE_USER=rafael
+      - DATABASE_NAME=storage_microservice
+      - DATABASE_PORT=3306
+
+  meta:
+    image: docker-meta
+    depends_on:
+      - server-discovery
+      - service-storage
+      - service-gif
+    links:
+      - server-discovery
+      - service-storage
+      - service-gif
+    ports:
+      - 8080:8080
+
+networks:
+  webappnetwork:
+    driver: bridge
