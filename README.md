@@ -1,5 +1,6 @@
 # Meta
 Веб-приложение, написанное на java (spring), на основе микросервисной архитектуре (Патерн - Агрегатор)  
+Объединяет 3 сервиса service-storage-socks (https://github.com/Mojo774/Raifaizen_task), service-gif (https://github.com/Mojo774/AlphaBank_task), Meta  
 Внешний интерфейс и межсервисное взаимодействие организовано с использованием REST API    
 Подключен Eureka Server (discovery-server)
 
